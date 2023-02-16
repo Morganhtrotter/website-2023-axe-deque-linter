@@ -1,5 +1,8 @@
 <template>
-  <div class="item">
+  <div
+    @mouseover="itemHover"
+    class="item"
+  >
     <i>
       <slot name="icon"></slot>
     </i>
@@ -11,6 +14,24 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  methods: {
+    itemHover(event) {
+      console.log("hovered elm");
+      event.target.style.backgroundColor = "red";
+      setTimeout(function (){
+        event.target.style.backgroundColor = "#181818";
+        event.target.style.transition = "background-color 1000ms linear";
+      }, 50);
+      setTimeout(function (){
+        event.target.style.transition = "none";
+      }, 1000);
+    },
+  },
+}
+</script>
 
 <style scoped>
 .item {
