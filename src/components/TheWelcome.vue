@@ -12,11 +12,12 @@ import SupportIcon from './icons/IconSupport.vue'
     <template #icon>
       <DocumentationIcon />
     </template>
-    <template #heading>Documentation</template>
+    <template #heading>Climate Change Data Viz</template>
 
-    Vue’s
-    <a href="https://vuejs.org/" target="_blank" rel="noopener">official documentation</a>
-    provides you with all information you need to get started.
+    During my capstone course at UCSC, four group members and I set out to learn the javascript library D3.js 
+    and create unique, interactive visualizations surrounding climate change. 
+    <a href="https://morganhtrotter.github.io/co2page/" target="_blank" rel="noopener">This</a> is my 
+    contribution to the project.
   </WelcomeItem>
 
   <WelcomeItem>
