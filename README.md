@@ -31,7 +31,7 @@ npm run build
 ### Deploy to Production
 
 ```sh
-./deploy.sh
+sh deploy.sh
 ```
 
 # Ideas:
