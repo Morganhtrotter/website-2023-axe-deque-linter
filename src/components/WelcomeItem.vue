@@ -3,6 +3,7 @@
     @mouseover="itemHover"
     class="item"
   >
+    <pre>{{ mlbDataRef }}</pre>
     <i>
       <slot name="icon"></slot>
     </i>
@@ -11,12 +12,28 @@
         <slot name="heading"></slot>
       </h3>
       <slot></slot>
+      <button @click="loadMLBData()">Load MLB Data (Fetch)</button>
     </div>
   </div>
 </template>
 
 <script>
+import mlbDataAPI from '../api/resources/mlbData.js';
+import { ref } from 'vue';
+
 export default {
+  setup() {
+    const mlbDataRef = ref({});
+    const loadMLBData = async() => {
+      mlbDataRef.value = await mlbDataAPI.index('/json/named.team_all_season.bam?sport_code=%27mlb%27&all_star_sw=%27N%27&sort_order=name_asc&season=%272023%27');
+    };
+
+    return {
+      mlbDataRef,
+      loadMLBData
+    }
+  },
+
   methods: {
     itemHover(event) {
       console.log("hovered elm");

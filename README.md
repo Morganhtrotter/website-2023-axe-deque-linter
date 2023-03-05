@@ -28,6 +28,12 @@ npm run dev
 npm run build
 ```
 
+### Deploy to Production
+
+```sh
+./deploy.sh
+```
+
 # Ideas:
 # Dark Screen
 # little lumination around cursor
