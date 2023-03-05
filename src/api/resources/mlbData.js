@@ -15,8 +15,4 @@ export default {
             }
         });
     },
-
-    store(data) {
-
-    }
 }
