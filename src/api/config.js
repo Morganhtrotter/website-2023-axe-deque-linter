@@ -3,5 +3,5 @@ export const APISettings = {
     headers: new Headers({
         'Accept': 'application/json'
     }),
-    baseURL: 'https://lookup-service-prod.mlb.com',
+    baseURL: 'https://statsapi.mlb.com/api/v1',
 }
