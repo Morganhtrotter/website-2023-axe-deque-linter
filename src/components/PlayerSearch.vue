@@ -12,6 +12,8 @@
         <slot name="heading"></slot>
       </h3>
       <slot></slot>
+      <input v-model="userInput" placeholder="John Doe" />
+      <div>{{ userInput }}</div>
       <button @click="loadMLBData()">Load MLB Data (Fetch)</button>
     </div>
   </div>
@@ -22,12 +24,17 @@ import mlbDataAPI from '../api/resources/mlbData.js';
 import { ref } from 'vue';
 
 export default {
+  data() {
+    return {
+      userInput: ''
+    }
+  },
+
   setup() {
     const mlbDataRef = ref({});
     const loadMLBData = async() => {
-      mlbDataRef.value = await mlbDataAPI.index('/json/named.team_all_season.bam?sport_code=%27mlb%27&all_star_sw=%27N%27&sort_order=name_asc&season=%272023%27');
+      mlbDataRef.value = await mlbDataAPI.index('/people/430832');
     };
-
     return {
       mlbDataRef,
       loadMLBData
