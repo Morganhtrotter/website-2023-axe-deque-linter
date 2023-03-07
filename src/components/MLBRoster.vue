@@ -1,6 +1,6 @@
 <template>
   <div
-    class="item"
+    class="MLBRoster"
   >
     <i>
       <slot name="icon"></slot>
@@ -72,7 +72,7 @@ export default {
     },
     collapse() {
       if (this.showHideButton === "Show") {
-        document.querySelector(".team-" + this.teamId).style.display = "block"; // Hide the player names wrapper
+        document.querySelector(".team-" + this.teamId).style.display = "block"; // Show the player names wrapper
         this.showHideButton = "Hide";
       } else {
         document.querySelector(".team-" + this.teamId).style.display = "none"; // Hide the player names wrapper
@@ -99,14 +99,137 @@ export default {
   border: 1px solid white;
 }
 
-.item {
-  margin-top: 2rem;
+.MLBRoster {
   display: flex;
+  border-radius: 0.5rem;
 }
 
 .details {
   flex: 1;
-  margin-left: 1rem;
+  padding: 0.5rem 0 0.5rem calc(var(--section-gap) / 2);
+  border: 1px solid blue;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+}
+
+#lad .details {
+  border-color: var(--dodger-blue);
+}
+
+#sf .details {
+  border-color: var(--giant-orange);
+}
+
+#sd .details {
+  border-color: var(--padres-brown);
+}
+
+#ari .details {
+  border-color: var(--dbacks-red);
+}
+
+#col .details {
+  border-color: var(--rockies-purple);
+}
+
+#stl .details {
+  border-color: var(--cardinals-red);
+}
+
+#mil .details {
+  border-color: var(--brewers-blue);
+}
+
+#chc .details {
+  border-color: var(--cubs-blue);
+}
+
+#pit .details {
+  border-color: var(--pirates-yellow);
+}
+
+#cin .details {
+  border-color: var(--reds-red);
+}
+
+#wsh .details {
+  border-color: var(--nationals-red);
+}
+
+#nym .details {
+  border-color: var(--mets-blue);
+}
+
+#phi .details {
+  border-color: var(--phillies-red);
+}
+
+#atl .details {
+  border-color: var(--braves-blue);
+}
+
+#mia .details {
+  border-color: var(--marlins-blue);
+}
+
+#sea .details {
+  border-color: var(--mariners-blue);
+}
+
+#hou .details {
+  border-color: var(--astros-orange);
+}
+
+#oak .details {
+  border-color: var(--athletics-green);
+}
+
+#laa .details {
+  border-color: var(--angels-red);
+}
+
+#tex .details {
+  border-color: var(--rangers-blue);
+}
+
+#min .details {
+  border-color: var(--twins-blue);
+}
+
+#det .details {
+  border-color: var(--tigers-blue);
+}
+
+#cws .details {
+  border-color: var(--white-sox-black);
+}
+
+#kc .details {
+  border-color: var(--royals-blue);
+}
+
+#cle .details {
+  border-color: var(--guardians-red);
+}
+
+#tor .details {
+  border-color: var(--blue-jays-blue);
+}
+
+#nyy .details {
+  border-color: var(--yankees-blue);
+}
+
+#bos .details {
+  border-color: var(--red-sox-red);
+}
+
+#tb .details {
+  border-color: var(--rays-blue);
+}
+
+#bal .details {
+  border-color: var(--orioles-orange);
 }
 
 i {
@@ -127,9 +250,8 @@ h3 {
 }
 
 @media (min-width: 1024px) {
-  .item {
+  .MLBRoster {
     margin-top: 0;
-    padding: 0.4rem 0 1rem calc(var(--section-gap) / 2);
   }
 
   i {
@@ -141,9 +263,10 @@ h3 {
     border-radius: 8px;
     width: 50px;
     height: 50px;
+    z-index: 2;
   }
 
-  .item:before {
+  .MLBRoster:before {
     content: ' ';
     border-left: 1px solid var(--color-border);
     position: absolute;
@@ -152,7 +275,7 @@ h3 {
     height: calc(50% - 25px);
   }
 
-  .item:after {
+  .MLBRoster:after {
     content: ' ';
     border-left: 1px solid var(--color-border);
     position: absolute;
@@ -161,11 +284,11 @@ h3 {
     height: calc(50% - 25px);
   }
 
-  .item:first-of-type:before {
+  .MLBRoster:first-of-type:before {
     display: none;
   }
 
-  .item:last-of-type:after {
+  .MLBRoster:last-of-type:after {
     display: none;
   }
 }

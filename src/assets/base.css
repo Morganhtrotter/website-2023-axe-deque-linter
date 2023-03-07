@@ -19,6 +19,43 @@
   --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
   --vt-c-text-dark-1: var(--vt-c-white);
   --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
+
+  /* MLB Team Colors */
+  --dodger-blue: #005A9C;
+  --giant-orange: #FD5A1E;
+  --padres-brown: #2F241D;
+  --dbacks-red: #A71930;
+  --rockies-purple: #333366;
+
+  --cardinals-red: #B72126;
+  --brewers-blue: #12284B;
+  --cubs-blue: #0E3386;
+  --pirates-yellow: #FDB827;
+  --reds-red: #C6011F;
+
+  --nationals-red: #AB0003;
+  --mets-blue: #002D72;
+  --phillies-red: #E81828;
+  --braves-blue: #13274F;
+  --marlins-blue: #00A3E0;
+
+  --mariners-blue: #0C2C56;
+  --astros-orange: #EB6E1F;
+  --athletics-green: #003831;
+  --angels-red: #BA0021;
+  --rangers-blue: #003278;
+
+  --twins-blue: #002B5C;
+  --tigers-blue: #0C2340;
+  --white-sox-black: #27251F;
+  --royals-blue: #004687;
+  --guardians-red: #E50022;
+
+  --blue-jays-blue: #134A8E;
+  --yankees-blue: #003087;
+  --red-sox-red: #BD3039;
+  --rays-blue: #092C5C;
+  --orioles-orange: #DF4601;
 }
 
 /* semantic color variables for this project */
