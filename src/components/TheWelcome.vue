@@ -234,7 +234,7 @@ import SupportIcon from './icons/IconSupport.vue'
     </MLBRoster>
 
     <MLBRoster
-      id="qws"
+      id="cws"
       teamId="145"  
     >
       <template #icon>
@@ -315,3 +315,9 @@ import SupportIcon from './icons/IconSupport.vue'
     </MLBRoster>
   </div>
 </template>
+
+<style scoped>
+#sf {
+  border-color: orange;
+}
+</style>
