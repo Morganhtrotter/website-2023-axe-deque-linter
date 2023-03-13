@@ -3,5 +3,5 @@ export const APISettings = {
     headers: new Headers({
         'Accept': 'application/json'
     }),
-    baseURL: 'https://statsapi.mlb.com/api/v1',
+    baseURL: 'https://statsapi.mlb.com',
 }

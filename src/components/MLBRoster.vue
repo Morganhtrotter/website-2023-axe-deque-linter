@@ -33,6 +33,11 @@
       >
         {{ showHideButton }}
       </button>
+      <button
+        @click="loadPlayerData()"
+      >
+        Load Aaron Judge 2022
+      </button>
     </div>
   </div>
 </template>
@@ -40,6 +45,7 @@
 <script>
 import mlbDataAPI from '../api/resources/mlbData.js';
 import { ref, toRefs } from 'vue';
+import * as d3 from 'd3';
 
 export default {
   props: {
@@ -51,19 +57,28 @@ export default {
   setup(props) {
     const showHideButton = ref({});
     const mlbDataRef = ref({});
+    const playerData = ref({});
     const { teamId } = toRefs(props);
     const loadMLBData = async() => {
-      mlbDataRef.value = await mlbDataAPI.index('/teams/' + teamId.value + '/roster/depthChart');
+      mlbDataRef.value = await mlbDataAPI.index('/api/v1/teams/' + teamId.value + '/roster');
       console.log("Made GET() request: " + mlbDataRef.value);
       document.querySelector(".collapse-" + teamId.value).style.display = "block";
       document.querySelector(".load-" + teamId.value).style.display = "none"; // Hide the load button to not make unnecessary GET requests
+      const width = 800;
+      const height = 500;
+      const svg = d3.selectAll(".MLBRoster").attr("class", "charles").attr("class", "caitlin");
+    };
+    const loadPlayerData = async() => {
+      playerData.value = await mlbDataAPI.player_stats('592450', '2022', 'hitting');
+      console.log("playerData.value: " + JSON.stringify(playerData.value));
     };
     showHideButton.value = "Hide";
     
     return {
       mlbDataRef,
       loadMLBData,
-      showHideButton
+      showHideButton,
+      loadPlayerData
     }
   },
   methods: {
