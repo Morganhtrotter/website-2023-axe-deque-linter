@@ -1,12 +1,13 @@
 <template>
   <div
+    @click="loadMLBData()"
     class="MLBRoster"
   >
     <i>
       <slot name="icon"></slot>
     </i>
     <div class="details">
-      <h3 @click="loadData()">
+      <h3>
         <slot name="heading"></slot>
       </h3>
       {{ teamId }}
@@ -21,18 +22,6 @@
           {{ player.person.fullName }}
         </div>
       </div>
-      <button
-        @click="loadMLBData()"
-        :class="[{'load': true}, teamId ? 'load-' + teamId : '']"
-      >
-        Load
-      </button>
-      <button 
-        @click="collapse()"
-        :class="[{'collapse': true}, teamId ? 'collapse-' + teamId : '']"
-      >
-        {{ showHideButton }}
-      </button>
       <button
         @click="loadPlayerData()"
       >
@@ -55,47 +44,46 @@ export default {
     }
   },
   setup(props) {
-    const showHideButton = ref({});
+    var showHideButton = ref({});
     const mlbDataRef = ref({});
     const playerData = ref({});
     const { teamId } = toRefs(props);
     const loadMLBData = async() => {
-      mlbDataRef.value = await mlbDataAPI.index('/api/v1/teams/' + teamId.value + '/roster');
-      console.log("Made GET() request: " + mlbDataRef.value);
-      document.querySelector(".collapse-" + teamId.value).style.display = "block";
-      document.querySelector(".load-" + teamId.value).style.display = "none"; // Hide the load button to not make unnecessary GET requests
-      const width = 800;
-      const height = 500;
-      const svg = d3.selectAll(".MLBRoster").attr("class", "charles").attr("class", "caitlin");
+      console.log(hasBeenClicked);
+      if (!hasBeenClicked) {
+        mlbDataRef.value = await mlbDataAPI.index('/api/v1/teams/' + teamId.value + '/roster');
+        console.log("Made GET() request: " + mlbDataRef.value);
+        const width = 800;
+        const height = 500;
+        const svg = d3.selectAll(".MLBRoster").attr("class", "charles").attr("class", "caitlin");
+        hasBeenClicked = true;
+      } else {
+        if (showHideButton === "Show") {
+          document.querySelector(".team-" + teamId.value).style.display = "block"; // Show the player names wrapper
+          showHideButton = "Hide";
+        } else {
+          document.querySelector(".team-" + teamId.value).style.display = "none"; // Hide the player names wrapper
+          showHideButton = "Show";
+        }
+        return;
+      }
     };
     const loadPlayerData = async() => {
       playerData.value = await mlbDataAPI.player_stats('592450', '2022', 'hitting');
       console.log("playerData.value: " + JSON.stringify(playerData.value));
     };
     showHideButton.value = "Hide";
+    var hasBeenClicked = false;
     
     return {
       mlbDataRef,
       loadMLBData,
       showHideButton,
-      loadPlayerData
+      loadPlayerData,
+      hasBeenClicked
     }
   },
-  methods: {
-    loadData() {
-      return this.teamId;
-    },
-    collapse() {
-      if (this.showHideButton === "Show") {
-        document.querySelector(".team-" + this.teamId).style.display = "block"; // Show the player names wrapper
-        this.showHideButton = "Hide";
-      } else {
-        document.querySelector(".team-" + this.teamId).style.display = "none"; // Hide the player names wrapper
-        this.showHideButton = "Show";
-      }
-      return;
-    }
-  },
+  methods: {},
 }
 </script>
 
@@ -104,10 +92,6 @@ export default {
   padding: 0.5rem;
   border-radius: 0.25rem;
   border: 1px solid transparent;
-}
-
-.collapse {
-  display: none;
 }
 
 .player:hover {
@@ -129,6 +113,9 @@ export default {
 
 #lad .details {
   border-color: var(--dodger-blue);
+  background-image: url('/website-2023/src/assets/icons/down-arrow.png');
+  background-repeat: no-repeat;
+  background-position: center right 5rem;
 }
 
 #sf .details {
