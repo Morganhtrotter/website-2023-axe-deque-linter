@@ -13,8 +13,16 @@
       {{ teamId }}
       <div 
         :class="[{'team': true}, teamId ? 'team-' + teamId : '']"
-        v-if="mlbDataRef" 
+        v-if="mlbDataRef && teamPitcherData"
       >
+        <div v-if="teamPitcherData">
+          <div 
+            v-for="(player, index) in mlbDataRef.roster"
+            class="player"  
+          >
+              {{ player.person.fullName }}
+          </div>
+        </div>
         <div 
           v-for="(player, index) in mlbDataRef.roster"
           class="player"  
@@ -23,7 +31,7 @@
         </div>
       </div>
       <button
-        @click="loadPlayerData()"
+        @click="increment()"
       >
         Load Aaron Judge 2022
       </button>
@@ -35,6 +43,7 @@
 import mlbDataAPI from '../api/resources/mlbData.js';
 import { ref, toRefs } from 'vue';
 import * as d3 from 'd3';
+import store from '../main.js';
 
 export default {
   props: {
@@ -47,17 +56,37 @@ export default {
     var showHideButton = ref({});
     const mlbDataRef = ref({});
     const playerData = ref({});
+    const teamHitterData = ref({});
+    const teamPitcherData = ref({});
     const { teamId } = toRefs(props);
     const loadMLBData = async() => {
       console.log(hasBeenClicked);
       if (!hasBeenClicked) {
         mlbDataRef.value = await mlbDataAPI.index('/api/v1/teams/' + teamId.value + '/roster');
+        console.log(teamPitcherData.value);
         console.log("Made GET() request: " + mlbDataRef.value);
+        //console.log(mlbDataRef.value);
         const width = 800;
         const height = 500;
         const svg = d3.selectAll(".MLBRoster").attr("class", "charles").attr("class", "caitlin");
         hasBeenClicked = true;
+        let tempHitterData = new Array();
+        let tempPitcherData = new Array();
+        // For each player in roster, load player data
+        mlbDataRef.value.roster.forEach(async (player) => {
+          if (player.position.code == 1) {
+            let pitcherStatistics = await mlbDataAPI.player_stats(player.person.id, '2022', 'pitching');
+            tempPitcherData.push(pitcherStatistics);
+          } else {
+            let playerStatistics = await mlbDataAPI.player_stats(player.person.id, '2022', 'hitting');
+            tempHitterData.push(playerStatistics);
+          }
+        })
+        teamHitterData.value = tempHitterData;
+        teamPitcherData.value = tempPitcherData;
+
       } else {
+        console.log(teamPitcherData.value);
         if (showHideButton === "Show") {
           document.querySelector(".team-" + teamId.value).style.display = "block"; // Show the player names wrapper
           showHideButton = "Hide";
@@ -80,10 +109,17 @@ export default {
       loadMLBData,
       showHideButton,
       loadPlayerData,
-      hasBeenClicked
+      hasBeenClicked,
+      teamHitterData,
+      teamPitcherData
     }
   },
-  methods: {},
+  methods: {
+    increment() {
+      this.$store.commit('increment')
+      console.log(this.$store.state.count)
+    }
+  },
 }
 </script>
 
