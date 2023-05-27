@@ -60,10 +60,9 @@ export default {
     const teamPitcherData = ref({});
     const { teamId } = toRefs(props);
     const loadMLBData = async() => {
-      console.log(hasBeenClicked);
+      // TODO: move hasBeenClicked code to seperate function called in beforeMount
       if (!hasBeenClicked) {
         mlbDataRef.value = await mlbDataAPI.index('/api/v1/teams/' + teamId.value + '/roster');
-        console.log(teamPitcherData.value);
         console.log("Made GET() request: " + mlbDataRef.value);
         //console.log(mlbDataRef.value);
         const width = 800;
@@ -74,7 +73,7 @@ export default {
         let tempPitcherData = new Array();
         // For each player in roster, load player data
         mlbDataRef.value.roster.forEach(async (player) => {
-          if (player.position.code == 1) {
+          if (player.position.code == 1) { // If player is a pitcher
             let pitcherStatistics = await mlbDataAPI.player_stats(player.person.id, '2022', 'pitching');
             tempPitcherData.push(pitcherStatistics);
           } else {
@@ -84,9 +83,7 @@ export default {
         })
         teamHitterData.value = tempHitterData;
         teamPitcherData.value = tempPitcherData;
-
       } else {
-        console.log(teamPitcherData.value);
         if (showHideButton === "Show") {
           document.querySelector(".team-" + teamId.value).style.display = "block"; // Show the player names wrapper
           showHideButton = "Hide";
@@ -116,9 +113,15 @@ export default {
   },
   methods: {
     increment() {
-      this.$store.commit('increment')
-      console.log(this.$store.state.count)
+      console.log("this.teamId: " + this.teamId);
+      let tempHitterStore = [this.teamHitterData, this.teamId];
+      let tempPitcherStore = [this.teamPitcherData, this.teamId];
+      this.$store.commit('addPlayers', tempHitterStore);
+      this.$store.commit('addPlayers', tempPitcherStore);
     }
+  },
+  beforeMount() {
+    this.loadMLBData();
   },
 }
 </script>
