@@ -15,19 +15,29 @@
         :class="[{'team': true}, teamId ? 'team-' + teamId : '']"
         v-if="mlbDataRef && teamPitcherData"
       >
-        <div v-if="teamPitcherData">
+        <div v-if="teamHitterData">
           <div 
-            v-for="(player, index) in mlbDataRef.roster"
+            v-for="(player, index) in getTeamHitting"
             class="player"  
           >
-              {{ player.person.fullName }}
+              <div v-for="playerTwo in player">
+                <div v-for="playerThree in playerTwo">
+                  {{ playerThree[0].fullName }}
+                </div>
+              </div>
           </div>
         </div>
-        <div 
-          v-for="(player, index) in mlbDataRef.roster"
-          class="player"  
-        >
-          {{ player.person.fullName }}
+        <div v-if="teamPitcherData">
+          <div 
+            v-for="(player, index) in getTeamPitching"
+            class="player"  
+          >
+              <div v-for="playerTwo in player">
+                <div v-for="playerThree in playerTwo">
+                  {{ playerThree[0].fullName }}
+                </div>
+              </div>
+          </div>
         </div>
       </div>
       <button
@@ -113,11 +123,141 @@ export default {
   },
   methods: {
     increment() {
-      console.log("this.teamId: " + this.teamId);
       let tempHitterStore = [this.teamHitterData, this.teamId];
       let tempPitcherStore = [this.teamPitcherData, this.teamId];
       this.$store.commit('addPlayers', tempHitterStore);
       this.$store.commit('addPlayers', tempPitcherStore);
+      console.log(this.$store.state.dodgers[0][0][0].people[0]);
+    }
+  },
+  computed: {
+    getTeamHitting() {
+      if (this.teamId == "119") {
+        return this.$store.state.dodgers[0];
+      } else if (this.teamId == "137") {
+        return this.$store.state.giants[0];
+      } else if (this.teamId == "135") {
+        return this.$store.state.padres[0];
+      } else if (this.teamId == "109") {
+        return this.$store.state.dbacks[0];
+      } else if (this.teamId == "115") {
+        return this.$store.state.rockies[0];
+      } else if (this.teamId == "138") {
+        return this.$store.state.cardinals[0];
+      } else if (this.teamId == "158") {
+        return this.$store.state.brewers[0];
+      } else if (this.teamId == "112") {
+        return this.$store.state.cubs[0];
+      } else if (this.teamId == "134") {
+        return this.$store.state.pirates[0];
+      } else if (this.teamId == "113") {
+        return this.$store.state.reds[0];
+      } else if (this.teamId == "120") {
+        return this.$store.state.nationals[0];
+      } else if (this.teamId == "121") {
+        return this.$store.state.mets[0];
+      } else if (this.teamId == "143") {
+        return this.$store.state.phillies[0];
+      } else if (this.teamId == "144") {
+        return this.$store.state.braves[0];
+      } else if (this.teamId == "146") {
+        return this.$store.state.marlins[0];
+      } else if (this.teamId == "136") {
+        return this.$store.state.mariners[0];
+      } else if (this.teamId == "117") {
+        return this.$store.state.astros[0];
+      } else if (this.teamId == "133") {
+        return this.$store.state.athletics[0];
+      } else if (this.teamId == "108") {
+        return this.$store.state.angels[0];
+      } else if (this.teamId == "140") {
+        return this.$store.state.rangers[0];
+      } else if (this.teamId == "142") {
+        return this.$store.state.twins[0];
+      } else if (this.teamId == "116") {
+        return this.$store.state.tigers[0];
+      } else if (this.teamId == "145") {
+        return this.$store.state.whiteSox[0];
+      } else if (this.teamId == "118") {
+        return this.$store.state.royals[0];
+      } else if (this.teamId == "114") {
+        return this.$store.state.guardians[0];
+      } else if (this.teamId == "141") {
+        return this.$store.state.blueJays[0];
+      } else if (this.teamId == "147") {
+        return this.$store.state.yankees[0];
+      } else if (this.teamId == "111") {
+        return this.$store.state.redSox[0];
+      } else if (this.teamId == "139") {
+        return this.$store.state.rays[0];
+      } else if (this.teamId == "110") {
+        return this.$store.state.orioles[0];
+      }
+      return
+    },
+    getTeamPitching() {
+      if (this.teamId == "119") {
+        return this.$store.state.dodgers[1];
+      } else if (this.teamId == "137") {
+        return this.$store.state.giants[1];
+      } else if (this.teamId == "135") {
+        return this.$store.state.padres[1];
+      } else if (this.teamId == "109") {
+        return this.$store.state.dbacks[1];
+      } else if (this.teamId == "115") {
+        return this.$store.state.rockies[1];
+      } else if (this.teamId == "138") {
+        return this.$store.state.cardinals[1];
+      } else if (this.teamId == "158") {
+        return this.$store.state.brewers[1];
+      } else if (this.teamId == "112") {
+        return this. $store.state.cubs[1];
+      } else if (this.teamId == "134") {
+        return this.$store.state.pirates[1];
+      } else if (this.teamId == "113") {
+        return this.$store.state.reds[1];
+      } else if (this.teamId == "120") {
+        return this.$store.state.nationals[1];
+      } else if (this.teamId == "121") {
+        return this.$store.state.mets[1];
+      } else if (this.teamId == "143") {
+        return this.$store.state.phillies[1];
+      } else if (this.teamId == "144") {
+        return this.$store.state.braves[1];
+      } else if (this.teamId == "146") {
+        return this.$store.state.marlins[1];
+      } else if (this.teamId == "136") {
+        return this.$store.state.mariners[1];
+      } else if (this.teamId == "117") {
+        return this.$store.state.astros[1];
+      } else if (this.teamId == "133") {
+        return this.$store.state.athletics[1];
+      } else if (this.teamId == "108") {
+        return this.$store.state.angels[1];
+      } else if (this.teamId == "140") {
+        return this.$store.state.rangers[1];
+      } else if (this.teamId == "142") {
+        return this.$store.state.twins[1];
+      } else if (this.teamId == "116") {
+        return this.$store.state.tigers[1];
+      } else if (this.teamId == "145") {
+        return this.$store.state.whiteSox[1];
+      } else if (this.teamId == "118") {
+        return this.$store.state.royals[1];
+      } else if (this.teamId == "114") {
+        return this.$store.state.guardians[1];
+      } else if (this.teamId == "141") {
+        return this.$store.state.blueJays[1];
+      } else if (this.teamId == "147") {
+        return this.$store.state.yankees[1];
+      } else if (this.teamId == "111") {
+        return this.$store.state.redSox[1];
+      } else if (this.teamId == "139") {
+        return this.$store.state.rays[1];
+      } else if (this.teamId == "110") {
+        return this.$store.state.orioles[1];
+      }
+      return
     }
   },
   beforeMount() {

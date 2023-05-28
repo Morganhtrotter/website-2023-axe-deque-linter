@@ -41,8 +41,7 @@ const store = createStore({
     },
     mutations: {
         addPlayers (state, players) {
-            console.log("players: " + players)
-            console.log(players[1]);
+            // TODO: Change state to one array of 30 initialized arrays with teamID
             if (players[1] == "119") {
                 state.dodgers.push(players)
             } else if (players[1] == "137") {
@@ -104,6 +103,11 @@ const store = createStore({
             } else if (players[1] == "110") {
                 state.orioles.push(players)
             }
+        }
+    },
+    getters: {
+        getTeamID (state) {
+            return state
         }
     }
 })
