@@ -1,6 +1,6 @@
 <template>
   <div
-    @click="loadMLBData()"
+    @click="increment()"
     class="MLBRoster"
   >
     <i>
@@ -40,11 +40,6 @@
           </div>
         </div>
       </div>
-      <button
-        @click="increment()"
-      >
-        Load Aaron Judge 2022
-      </button>
     </div>
   </div>
 </template>
@@ -53,7 +48,6 @@
 import mlbDataAPI from '../api/resources/mlbData.js';
 import { ref, toRefs } from 'vue';
 import * as d3 from 'd3';
-import store from '../main.js';
 
 export default {
   props: {
@@ -108,8 +102,9 @@ export default {
       playerData.value = await mlbDataAPI.player_stats('592450', '2022', 'hitting');
       console.log("playerData.value: " + JSON.stringify(playerData.value));
     };
-    showHideButton.value = "Hide";
+    showHideButton.value = "Show";
     var hasBeenClicked = false;
+    var loadRosterData = false;
     
     return {
       mlbDataRef,
@@ -118,16 +113,27 @@ export default {
       loadPlayerData,
       hasBeenClicked,
       teamHitterData,
-      teamPitcherData
+      teamPitcherData,
+      loadRosterData
     }
   },
   methods: {
     increment() {
-      let tempHitterStore = [this.teamHitterData, this.teamId];
-      let tempPitcherStore = [this.teamPitcherData, this.teamId];
-      this.$store.commit('addPlayers', tempHitterStore);
-      this.$store.commit('addPlayers', tempPitcherStore);
-      console.log(this.$store.state.dodgers[0][0][0].people[0]);
+      if (!this.loadRosterData) {
+        let tempHitterStore = [this.teamHitterData, this.teamId];
+        let tempPitcherStore = [this.teamPitcherData, this.teamId];
+        this.$store.commit('addPlayers', tempHitterStore);
+        this.$store.commit('addPlayers', tempPitcherStore);
+        //console.log(this.$store.state.dodgers[0][0][0].people[0]);
+        this.loadRosterData = true;
+      }
+      if (this.showHideButton === "Show") {
+        document.querySelector(".team-" + this.teamId).style.display = "block"; // Show the player names wrapper
+        this.showHideButton = "Hide";
+      } else {
+        document.querySelector(".team-" + this.teamId).style.display = "none"; // Hide the player names wrapper
+        this.showHideButton = "Show";
+      }
     }
   },
   computed: {
