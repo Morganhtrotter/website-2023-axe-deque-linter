@@ -25,10 +25,3 @@ npm run build
 ```sh
 sh deploy.sh
 ```
-
-# Ideas:
-# Dark Screen
-# little lumination around cursor
-# find the light bulb switch
-# click it
-# screen lights up
