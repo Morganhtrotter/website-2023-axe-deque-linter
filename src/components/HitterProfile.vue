@@ -7,8 +7,6 @@
                 <h4>{{ this.stats.people[0].fullName }} <p>{{ this.stats.people[0].primaryPosition.abbreviation }}</p></h4>
             </div>
         </div>
-        <!--<h4>{{ this.stats.people[0].fullName }}</h4>
-        <h4>{{ this.stats.fullName }}</h4>-->
     </div>
 </template>
 <script>
@@ -21,7 +19,7 @@ export default {
     }
 }
 </script>
-<style scoped>
+<style scoped lang="scss">
 .hitter-prof-wrapper {
     padding: 12px 20px;
     border: 1px solid black;

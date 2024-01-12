@@ -316,8 +316,5 @@ import SupportIcon from './icons/IconSupport.vue'
   </div>
 </template>
 
-<style scoped>
-#sf {
-  border-color: orange;
-}
+<style scoped lang="scss">
 </style>

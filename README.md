@@ -22,6 +22,6 @@ npm run build
 
 ### Deploy to Production
 
-```sh
-sh deploy.sh
-```
+Compile and Minify for Production
+Copy the contents of the /dist directory
+Override the "four" branch with the contents of /dist directory

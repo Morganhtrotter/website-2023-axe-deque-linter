@@ -13,6 +13,7 @@
       {{ teamId }}
       <div 
         :class="[{'team': true}, teamId ? 'team-' + teamId : '']"
+        v-on:click.stop
         v-if="mlbDataRef && teamPitcherData"
       >
         <div v-if="teamHitterData">
@@ -28,15 +29,6 @@
                 </HitterProfile>
               </div>
             </div>
-          <!--<div v-for="playerTwo in player">
-                <div v-for="playerThree in playerTwo">
-                  {{ playerThree[0].fullName }}
-                  <HitterProfile
-                    :stats=playerThree[0]
-                  >
-                  </HitterProfile>
-                </div>
-              </div>-->
           </div>
         </div>
         <div v-if="teamPitcherData">
@@ -81,10 +73,8 @@ export default {
             if (!hasBeenClicked) {
                 mlbDataRef.value = await mlbDataAPI.index("/api/v1/teams/" + teamId.value + "/roster");
                 console.log("Made GET() request: " + mlbDataRef.value);
-                //console.log(mlbDataRef.value);
                 const width = 800;
                 const height = 500;
-                const svg = d3.selectAll(".MLBRoster").attr("class", "charles").attr("class", "caitlin");
                 hasBeenClicked = true;
                 let tempHitterData = new Array();
                 let tempPitcherData = new Array();
@@ -93,12 +83,10 @@ export default {
                     if (player.position.code == 1) { // If player is a pitcher
                         let pitcherStatistics = await mlbDataAPI.player_stats(player.person.id, "2022", "pitching");
                         tempPitcherData.push(pitcherStatistics);
-                        //console.log(tempPitcherData);
                     }
                     else {
                         let playerStatistics = await mlbDataAPI.player_stats(player.person.id, "2022", "hitting");
                         tempHitterData.push(playerStatistics);
-                        //console.log(tempHitterData);
                     }
                 });
                 teamHitterData.value = tempHitterData;
@@ -141,7 +129,6 @@ export default {
                 let tempPitcherStore = [this.teamPitcherData, this.teamId];
                 this.$store.commit("addPlayers", tempHitterStore);
                 this.$store.commit("addPlayers", tempPitcherStore);
-                //console.log(this.$store.state.dodgers[0][0][0].people[0]);
                 this.loadRosterData = true;
             }
             if (this.showHideButton === "Show") {
@@ -351,7 +338,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .hitter {
   width: 22%;
   min-width: 250px;
@@ -380,7 +367,7 @@ export default {
 
 .details {
   flex: 1;
-  padding: 0.5rem 0 0.5rem calc(var(--section-gap) / 2);
+  padding: 0.5rem calc(var(--section-gap) / 2);
   border: 1px solid blue;
   border-radius: 0.5rem;
   margin: 1rem 0;
@@ -388,13 +375,13 @@ export default {
 
 #lad .details {
   border-color: var(--dodger-blue);
-  background-image: url('/website-2023/src/assets/icons/down-arrow.png');
-  background-repeat: no-repeat;
-  background-position: center right 5rem;
 }
 
 #sf .details {
   border-color: var(--giant-orange);
+  .team-hitter-wrapper {
+    background-color: orange;
+  }
 }
 
 #sd .details {
