@@ -1,7 +1,9 @@
 import { createApp } from 'vue'
 import { createStore } from 'vuex'
+import { createVfm } from 'vue-final-modal'
 import App from './App.vue'
 import './assets/main.css'
+import 'vue-final-modal/style.css'
 
 // Create a new store instance.
 const store = createStore({
@@ -114,7 +116,9 @@ const store = createStore({
 
 const app = createApp(App).use(store)
 
-app.mount('#app')
+const vfm = createVfm()
+
+app.use(vfm).mount('#app')
 // Install the store instance as a plugin
 //app.use(store)
 

@@ -1,5 +1,7 @@
 <script setup>
 import TheWelcome from './components/TheWelcome.vue'
+import { ModalsContainer } from 'vue-final-modal'
+
 </script>
 
 <template>
@@ -7,7 +9,12 @@ import TheWelcome from './components/TheWelcome.vue'
   </header>
 
   <main>
-    <TheWelcome />
+    <div class="h-screen flex items-center justify-center">
+      <TheWelcome />
+    </div>
+    <div>
+      <ModalsContainer />
+    </div>
   </main>
   <footer>
   </footer>
