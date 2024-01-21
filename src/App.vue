@@ -1,5 +1,7 @@
 <script setup>
 import TheWelcome from './components/TheWelcome.vue'
+import { ModalsContainer } from 'vue-final-modal'
+
 </script>
 
 <template>
@@ -7,14 +9,18 @@ import TheWelcome from './components/TheWelcome.vue'
   </header>
 
   <main>
-    <TheWelcome />
+    <div class="h-screen flex items-center justify-center">
+      <TheWelcome />
+    </div>
+    <div>
+      <ModalsContainer />
+    </div>
   </main>
   <footer>
-    <div> Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik"> Freepik </a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com'</a></div>
   </footer>
 </template>
 
-<style scoped>
+<style module lang="scss">
 header {
   line-height: 1.5;
 }

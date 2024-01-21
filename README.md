@@ -22,13 +22,6 @@ npm run build
 
 ### Deploy to Production
 
-```sh
-sh deploy.sh
-```
-
-# Ideas:
-# Dark Screen
-# little lumination around cursor
-# find the light bulb switch
-# click it
-# screen lights up
+Compile and Minify for Production
+Copy the contents of the /dist directory
+Override the "four" branch with the contents of /dist directory
