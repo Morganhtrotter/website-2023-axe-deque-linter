@@ -2,25 +2,25 @@
 
 Node.js
 
-### Project Setup
+## Project Setup
 
 ```sh
 npm install
 ```
 
-#### Compile and Hot-Reload for Development
+### Compile and Hot-Reload for Development
 
 ```sh
 npm run dev
 ```
 
-#### Compile and Minify for Production
+### Compile and Minify for Production
 
 ```sh
 npm run build
 ```
 
-#### Deploy to Production
+### Deploy to Production
 
 Compile and Minify for Production
 Copy the contents of the /dist directory

@@ -4,7 +4,6 @@
             <div class="header-wrapper">
                 <h5 v-if="this.stats.people[0].primaryNumber">{{ this.stats.people[0].primaryNumber }}</h5>
                 <h5 v-else>NA</h5>
-                <button></button>
                 <h4>{{ this.stats.people[0].fullName }} <p>{{ this.stats.people[0].primaryPosition.abbreviation }}</p></h4>
             </div>
         </div>
